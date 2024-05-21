@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+div.gallery {
+  margin: 10px;
+  border: 2px solid #ccc;
+  float: left;
+  width: 180px;
+}
+
+div.gallery:hover {
+  border: 1px solid #777;
+}
+
+div.gallery img {
+  width: 100%;
+  height: auto;
+}
+
+div.desc {
+  padding: 15px;
+  text-align: center;
+}
+.img{
+  width:600px;
+  height:400px:
+}
+   body{
+   background-color:#a6f7aa;
+}
+    article {
+  float: left;
+  padding: 20px;
+  width: 70%;
+  background-color: #f1f1f1;
+  height: 300px; /* only for demonstration, should be removed */
+}
+
+</style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-success">
+  <a class="navbar-brand" href="/">
+    List Of Movies
+  </a>
+
+</nav>
+
+    <div class="gallery">
+    <img class="gallery img" src="{{movie.image.url}}" alt="Cinque Terre" width="200" height="300">
+    <div class="desc">{{movie.name}}</div>
+    <div class="desc">{{movie.year}}</div>
+         <h6>Rating</h6>
+    {% for i in rate %}
+        <p>{{i.user.firstname}}:{{i.rating}}</p>
+
+    {% endfor %}
+    </div>
+    <div class="article">
+    <h5>Movie Description</h5>
+    <p>{{movie.desc}}</p>
+        <h5>Actors</h5>
+        <p>{{movie.actors}}</p>
+    <h5>Watch Trailer</h5>
+    <a href="{{movie.trailer}}">Click Here</a><br>
+
+    <form style="width:25%;" method="POST" action="rating/">
+        {% csrf_token %}
+    Rate This Movie
+    <input type="number" class="form-control" name="rate" min="1" max="10" placeholder="enter the rating"> <br>
+    <input type="hidden" name="movie" value="{{movie.id}}">
+    <input class="btn btn-success" type="submit">
+
+    </form>
+    </div>
+
+
+
+</body>
+</html>
